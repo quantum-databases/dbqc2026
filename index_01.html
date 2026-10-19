@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>QDB 2027 · Workshop on Quantum Computing and Databases</title>
+  <meta name="description" content="A one-day workshop on quantum algorithms for data management and databases for quantum computing.">
+
+  <!-- Font (optional). Remove these three lines to use Georgia instead. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ============ TWO-COLUMN LAYOUT ============
+       Left column: the sidebar (stays in view while scrolling).
+       Right column: the page content.
+       On phones the sidebar turns into a bar at the top. -->
+  <div class="layout container">
+
+    <!-- ============ SIDEBAR ============
+         Each link points to a section id further down the page. -->
+    <aside class="sidebar">
+      <a class="brand" href="#top"><span class="ket">QDB</span> 2027</a>
+      <p class="sidebar-tagline">Workshop on Quantum Computing and Databases</p>
+
+      <nav class="site-nav" aria-label="Main">
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#venue">Venue</a></li>
+          <li><a href="#speakers">Speakers</a></li>
+          <li><a href="#program">Program</a></li>
+          <li><a href="#dinner">Dinner &amp; social event</a></li>
+          <li><a href="#organizers">Organizers</a></li>
+        </ul>
+      </nav>
+
+      <!-- Hidden on phones, where the same button is in the header -->
+      <div class="sidebar-extra">
+        <p>Talk registration closes<br><strong>30 April 2027</strong></p>
+        <a class="button" href="https://example.org/register-talk">Register a talk</a>
+      </div>
+    </aside>
+
+    <div class="content">
+
+      <!-- ============ HERO ============ -->
+      <header class="hero" id="top">
+        <p class="hero-context">A one-day workshop at [Host Conference] 2027</p>
+        <h1><span class="ket">QDB</span></h1>
+        <p class="hero-title">The 2nd Workshop on Quantum Computing and Databases</p>
+
+        <dl class="hero-facts">
+          <div><dt>When</dt><dd>14 September 2027</dd></div>
+          <div><dt>Where</dt><dd>Otaniemi, Espoo, Finland</dd></div>
+          <div><dt>Format</dt><dd>In person, talks streamed</dd></div>
+        </dl>
+
+        <div class="actions">
+          <a class="button" href="https://example.org/register-talk">Register a talk</a>
+          <a class="button outline" href="#program">See the program</a>
+        </div>
+      </header>
+
+      <main id="main">
+
+        <!-- ============ ABOUT ============ -->
+        <section id="about">
+          <h2>About the workshop</h2>
+          <p class="lead">QDB brings together researchers in quantum computing and data management to ask what each field can do for the other.</p>
+          <p>Quantum hardware is maturing quickly, and many of the problems databases face (join ordering, index selection, transaction scheduling) are hard optimisation problems that quantum methods may help with. In the other direction, quantum experiments produce data that classical systems struggle to store and query.</p>
+          <p>The workshop is a day of talks, with no papers or proceedings. To give a talk, <a href="https://example.org/register-talk">register it</a> by <strong>30 April 2027</strong> with a title and a short abstract.</p>
+        </section>
+
+        <!-- ============ VENUE ============ -->
+        <section id="venue">
+          <h2>Venue</h2>
+          <p>The workshop takes place on the Otaniemi campus, Room AS2:</p>
+          <p class="address">Maarintie 8<br>02150 Espoo, Finland</p>
+
+          <!-- MAP FROM OPENSTREETMAP
+               To change it: open openstreetmap.org, find your venue, click
+               "Share", choose "HTML", tick "Include marker", and copy the
+               src="…" address into the iframe below. Update the link too. -->
+          <div class="map">
+            <iframe
+              title="Map showing the workshop venue"
+              src="https://www.openstreetmap.org/export/embed.html?bbox=24.8135%2C60.1846%2C24.8256%2C60.1891&amp;layer=mapnik&amp;marker=60.186850%2C24.819548"
+              loading="lazy"></iframe>
+          </div>
+          <p class="map-link"><a href="https://www.openstreetmap.org/?mlat=60.186850&amp;mlon=24.819548#map=19/60.186850/24.819548">View the venue on OpenStreetMap</a></p>
+
+          <h3>Getting there</h3>
+          <p>From Helsinki Airport, trains I and P reach the city centre in about 35 minutes. From the central railway station, take the metro to Aalto-yliopisto station, a short walk from the venue. Tickets are sold in the <a href="https://www.hsl.fi/en/tickets-and-fares/hsl-app">HSL app</a> and at station vending machines.</p>
+        </section>
+
+        <!-- ============ SPEAKERS ============
+             Replace the initials with a photo if you have one:
+             <img class="avatar" src="photos/aino.jpg" alt="">
+             Remove <span class="tag">Keynote</span> for regular speakers. -->
+        <section id="speakers">
+          <h2>Speakers</h2>
+          <ul class="people">
+            <li class="person">
+              <span class="avatar" aria-hidden="true">AV</span>
+              <div>
+                <h3>Aino Virtanen<span class="tag">Keynote</span></h3>
+                <p>Institute for Quantum Information</p>
+                <p class="talk">Can a quantum computer pick your join order?</p>
+              </div>
+            </li>
+            <li class="person">
+              <span class="avatar" aria-hidden="true">MO</span>
+              <div>
+                <h3>Marcus Oyelaran<span class="tag">Keynote</span></h3>
+                <p>Centre for Scientific Data Systems</p>
+                <p class="talk">Databases for the quantum lab</p>
+              </div>
+            </li>
+            <li class="person">
+              <span class="avatar" aria-hidden="true">LF</span>
+              <div>
+                <h3>Lena Fischer</h3>
+                <p>Example University</p>
+                <p class="talk">QUBO formulations for multi-query optimisation</p>
+              </div>
+            </li>
+            <li class="person">
+              <span class="avatar" aria-hidden="true">RM</span>
+              <div>
+                <h3>Ravi Menon</h3>
+                <p>Example Institute of Technology</p>
+                <p class="talk">A storage format for mid-circuit measurement data</p>
+              </div>
+            </li>
+            <li class="person">
+              <span class="avatar" aria-hidden="true">HK</span>
+              <div>
+                <h3>Hanna Kowalska</h3>
+                <p>Example Research Centre</p>
+                <p class="talk">Benchmarking quantum annealers on index selection</p>
+              </div>
+            </li>
+          </ul>
+        </section>
+
+        <!-- ============ PROGRAM ============
+             Copy a <tr> row to add a session.
+             class="break" for breaks, class="keynote" for keynotes. -->
+        <section id="program">
+          <h2>Program</h2>
+          <p>Tuesday, 14 September 2027. All times are in Eastern European Summer Time (UTC+3).</p>
+
+          <h3>Morning</h3>
+          <div class="table-wrap">
+            <table class="schedule">
+              <thead>
+                <tr><th scope="col">Time</th><th scope="col">Session</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>09:00–09:15</td><td>Welcome and opening remarks</td></tr>
+                <tr class="keynote">
+                  <td>09:15–10:15</td>
+                  <td>Can a quantum computer pick your join order?<span class="tag">Keynote</span>
+                    <span class="speaker">Aino Virtanen, Institute for Quantum Information</span></td>
+                </tr>
+                <tr class="break"><td>10:15–10:45</td><td>Coffee break</td></tr>
+                <tr>
+                  <td>10:45–11:10</td>
+                  <td>QUBO formulations for multi-query optimisation
+                    <span class="speaker">Lena Fischer, Example University</span></td>
+                </tr>
+                <tr>
+                  <td>11:10–11:35</td>
+                  <td>A storage format for mid-circuit measurement data
+                    <span class="speaker">Ravi Menon, Example Institute of Technology</span></td>
+                </tr>
+                <tr>
+                  <td>11:35–12:00</td>
+                  <td>Benchmarking quantum annealers on index selection
+                    <span class="speaker">Hanna Kowalska, Example Research Centre</span></td>
+                </tr>
+                <tr class="break"><td>12:00–13:30</td><td>Lunch</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Afternoon</h3>
+          <div class="table-wrap">
+            <table class="schedule">
+              <thead>
+                <tr><th scope="col">Time</th><th scope="col">Session</th></tr>
+              </thead>
+              <tbody>
+                <tr class="keynote">
+                  <td>13:30–14:30</td>
+                  <td>Databases for the quantum lab<span class="tag">Keynote</span>
+                    <span class="speaker">Marcus Oyelaran, Centre for Scientific Data Systems</span></td>
+                </tr>
+                <tr>
+                  <td>14:30–15:30</td>
+                  <td>Short talks (six 10-minute talks)</td>
+                </tr>
+                <tr class="break"><td>15:30–16:00</td><td>Coffee break</td></tr>
+                <tr>
+                  <td>16:00–16:50</td>
+                  <td>Panel: what would a quantum DBMS look like?
+                    <span class="speaker">Moderated by Sofia Restrepo</span></td>
+                </tr>
+                <tr><td>16:50–17:00</td><td>Closing remarks</td></tr>
+                <tr class="break"><td>17:30–18:45</td><td>Social event (see below)</td></tr>
+                <tr class="break"><td>19:00</td><td>Workshop dinner</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ============ DINNER & SOCIAL EVENT ============ -->
+        <section id="dinner">
+          <h2>Dinner &amp; social event</h2>
+
+          <h3>Social event</h3>
+          <p>After the talks, join a guided walk through [place], starting at <strong>17:30</strong> from the venue lobby. It takes about an hour and ends near the dinner venue.</p>
+
+          <h3>Workshop dinner</h3>
+          <p>The dinner starts at <strong>19:00</strong> at [Restaurant name]:</p>
+          <p><a href="https://www.openstreetmap.org/?mlat=60.169900&amp;mlon=24.938400#map=18/60.169900/24.938400">[Street address], Helsinki</a></p>
+          <p>The dinner is included for speakers and registered participants. Let the organizers know about any dietary requirements by 31 August.</p>
+        </section>
+
+        <!-- ============ ORGANIZERS ============ -->
+        <section id="organizers">
+          <h2>Organizers</h2>
+          <ul class="people">
+            <li class="person">
+              <span class="avatar" aria-hidden="true">SR</span>
+              <div><h3>Sofia Restrepo</h3><p>Department of Computer Science, Example University</p></div>
+            </li>
+            <li class="person">
+              <span class="avatar" aria-hidden="true">LW</span>
+              <div><h3>Li Wen</h3><p>Quantum Systems Group, Example Institute of Technology</p></div>
+            </li>
+            <li class="person">
+              <span class="avatar" aria-hidden="true">JN</span>
+              <div><h3>Jonas Nieminen</h3><p>Data Management Lab, Example University</p></div>
+            </li>
+          </ul>
+          <p>Questions? Write to <a href="mailto:qdb-workshop@example.org">qdb-workshop@example.org</a>.</p>
+        </section>
+
+      </main>
+
+      <!-- ============ FOOTER ============ -->
+      <footer class="site-footer">
+        <p>QDB 2027 Workshop on Quantum Computing and Databases</p>
+        <p><a href="#top">Back to top</a></p>
+      </footer>
+
+    </div><!-- /.content -->
+  </div><!-- /.layout -->
+
+</body>
+</html>

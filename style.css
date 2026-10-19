@@ -1,0 +1,659 @@
+/* ==========================================================================
+   Workshop template — style.css
+   --------------------------------------------------------------------------
+   Plain CSS, no framework, no JavaScript.
+
+   HOW TO CUSTOMISE
+   Almost everything you might want to change lives in section 1 below:
+   colours, fonts, page width and spacing. Change a value there and it
+   updates across the whole site.
+
+   CONTENTS
+     1. Design tokens (colours, fonts, sizes)
+     2. Base elements
+     3. Two-column layout
+     4. Sidebar and navigation
+     5. Hero
+     6. Components: ket notation, buttons, notes, info lists, topic columns
+     7. Important dates timeline
+     8. Programme table
+     9. People (speakers, organisers)
+    10. Footer
+    11. Small screens and print
+   ========================================================================== */
+
+
+/* 1. Design tokens -------------------------------------------------------- */
+
+:root {
+  /* Colours */
+  --paper:       #F6F7F9;   /* page background */
+  --surface:     #FFFFFF;   /* navigation bar, tables */
+  --ink:         #1A1D33;   /* main text */
+  --muted:       #5A5F78;   /* secondary text */
+  --rule:        #D9DCE5;   /* lines and borders */
+  --accent:      #0B7A75;   /* links, buttons, ket brackets */
+  --accent-soft: #E1F1EF;   /* tinted backgrounds */
+  --on-accent:   #FFFFFF;   /* text on filled buttons */
+
+  /* Fonts (Newsreader is loaded in index.html; Georgia is the fallback) */
+  --font-text: "Newsreader", Georgia, "Times New Roman", serif;
+  --font-ui:   system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-math: "STIX Two Math", "Cambria Math", "Latin Modern Math", "Segoe UI Symbol", serif;
+
+  /* Layout */
+  --page-width:    78rem;   /* maximum width of the whole page */
+  --sidebar-width: 15rem;   /* width of the left column */
+  --column-gap:    clamp(2.5rem, 5vw, 5rem);  /* space between columns */
+  --text-width:    40rem;   /* maximum width of paragraphs */
+  --gutter:        clamp(1.25rem, 4vw, 2.5rem);
+  --section-space: clamp(3rem, 8vw, 5.5rem);
+  --radius:        0.375rem;
+
+  color-scheme: light;
+}
+
+/* Dark mode follows the visitor's system setting.
+   Delete this whole block if you want the site to stay light. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper:       #121429;
+    --surface:     #1A1D38;
+    --ink:         #E7E9F2;
+    --muted:       #A2A7C0;
+    --rule:        #2F3355;
+    --accent:      #5CCFC4;
+    --accent-soft: #173A43;
+    --on-accent:   #0E1B22;
+    color-scheme: dark;
+  }
+}
+
+
+/* 2. Base elements -------------------------------------------------------- */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-padding-top: 2rem;            /* breathing room above linked headings */
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-text);
+  font-size: 1.1875rem;
+  line-height: 1.6;
+  font-optical-sizing: auto;
+  text-rendering: optimizeLegibility;
+}
+
+img { display: block; max-width: 100%; height: auto; }
+
+a {
+  color: var(--accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+a:hover { text-decoration-thickness: 2px; }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+h1, h2, h3 {
+  margin: 0 0 0.5em;
+  font-weight: 500;
+  line-height: 1.15;
+  text-wrap: balance;
+}
+h2 { font-size: clamp(1.75rem, 3.5vw, 2.25rem); letter-spacing: -0.01em; }
+h3 { font-size: 1.25rem; font-weight: 600; margin-top: 2rem; }
+h2 + h3 { margin-top: 0; }
+
+p, ul, ol, dl { margin: 0 0 1em; }
+p { text-wrap: pretty; }
+li { margin-bottom: 0.3em; }
+
+/* Small helpers you can add to any element */
+.lead  { font-size: 1.3125rem; line-height: 1.5; }
+.muted { color: var(--muted); }
+.small { font-size: 0.9375rem; }
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -3rem;
+  z-index: 20;
+  padding: 0.5rem 1rem;
+  background: var(--accent);
+  color: var(--on-accent);
+  font-family: var(--font-ui);
+  border-radius: var(--radius);
+}
+.skip-link:focus { top: 0.75rem; }
+
+
+/* 3. Two-column layout ---------------------------------------------------- */
+
+.container {
+  width: 100%;
+  max-width: var(--page-width);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* Sidebar on the left, content on the right */
+.layout {
+  display: grid;
+  grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
+  gap: 0 var(--column-gap);
+  align-items: start;
+}
+
+.content { min-width: 0; }
+
+main > section {
+  padding-block: var(--section-space);
+  border-top: 1px solid var(--rule);
+}
+
+/* Keep running text at a comfortable reading width */
+section > p,
+section > ul,
+section > ol { max-width: var(--text-width); }
+
+
+/* 4. Sidebar and navigation ------------------------------------------------ */
+
+.sidebar {
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  max-height: 100vh;
+  max-height: 100dvh;
+  overflow-y: auto;
+  padding-block: 3rem 2rem;
+  font-family: var(--font-ui);
+  font-size: 0.9375rem;
+}
+
+.sidebar .brand {
+  color: var(--ink);
+  font-family: var(--font-text);
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.2;
+  text-decoration: none;
+}
+
+.sidebar-tagline {
+  margin: -1.25rem 0 0;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.site-nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-left: 1px solid var(--rule);
+}
+.site-nav li { margin: 0; }
+
+.site-nav a {
+  display: block;
+  margin-left: -1px;
+  padding: 0.4rem 0 0.4rem 1rem;
+  border-left: 2px solid transparent;
+  color: var(--muted);
+  text-decoration: none;
+}
+.site-nav a:hover {
+  border-left-color: var(--accent);
+  color: var(--ink);
+}
+
+.sidebar-extra p {
+  margin: 0 0 0.75rem;
+  color: var(--muted);
+  line-height: 1.45;
+}
+.sidebar-extra strong { color: var(--ink); }
+
+
+/* 5. Hero ----------------------------------------------------------------- */
+
+.hero {
+  padding-block: clamp(3rem, 8vw, 6rem) clamp(3rem, 6vw, 4.5rem);
+}
+
+.hero-context {
+  margin-bottom: 1.25rem;
+  color: var(--muted);
+  font-family: var(--font-ui);
+  font-size: 1rem;
+}
+
+.hero h1 {
+  margin-bottom: 0.2em;
+  font-size: clamp(3.5rem, 11vw, 7.5rem);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 0.95;
+}
+
+.hero-title {
+  max-width: 30ch;
+  margin-bottom: 2rem;
+  font-size: clamp(1.375rem, 3vw, 1.875rem);
+  line-height: 1.3;
+}
+
+.hero-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 3rem;
+  margin: 0 0 2.5rem;
+  font-family: var(--font-ui);
+}
+.hero-facts dt { color: var(--muted); font-size: 0.875rem; }
+.hero-facts dd { margin: 0; font-size: 1.0625rem; font-weight: 600; }
+
+
+/* 6. Components ----------------------------------------------------------- */
+
+/* Ket notation: <span class="ket">QDB</span> renders as |QDB⟩
+   Use class="bra" for ⟨QDB| */
+.ket::before, .ket::after,
+.bra::before, .bra::after {
+  color: var(--accent);
+  font-family: var(--font-math);
+  font-weight: 400;
+}
+.ket::before { content: "|";     margin-right: 0.04em; }
+.ket::after  { content: "\27E9"; margin-left: 0.02em; }
+.bra::before { content: "\27E8"; margin-right: 0.02em; }
+.bra::after  { content: "|";     margin-left: 0.04em; }
+
+/* Buttons: <a class="button"> or <a class="button outline"> */
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.button {
+  display: inline-block;
+  padding: 0.85em 1.3em;
+  border: 1.5px solid var(--accent);
+  border-radius: var(--radius);
+  background: var(--accent);
+  color: var(--on-accent);
+  font-family: var(--font-ui);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+}
+.button:hover { filter: brightness(1.1); }
+
+.button.outline {
+  background: transparent;
+  color: var(--accent);
+}
+.button.outline:hover {
+  background: var(--accent-soft);
+  filter: none;
+}
+
+/* Announcement box: <div class="note">…</div> */
+.note {
+  max-width: var(--text-width);
+  margin-bottom: 1.5rem;
+  padding: 1rem 1.25rem;
+  border-left: 3px solid var(--accent);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  background: var(--accent-soft);
+  font-family: var(--font-ui);
+  font-size: 1rem;
+}
+.note > :last-child { margin-bottom: 0; }
+
+/* Label/value pairs: <dl class="info"> */
+.info {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.6rem 2rem;
+  max-width: var(--text-width);
+}
+.info dt {
+  padding-top: 0.2em;
+  font-family: var(--font-ui);
+  font-size: 1rem;
+  font-weight: 600;
+}
+.info dd { margin: 0; }
+
+/* Two-column bullet list: <ul class="columns"> */
+.columns {
+  columns: 2 18rem;
+  column-gap: 3rem;
+  max-width: none;
+  padding-left: 1.2em;
+}
+.columns li { break-inside: avoid; }
+
+/* Small inline label: <span class="tag">Keynote</span> */
+.tag {
+  display: inline-block;
+  margin-left: 0.4em;
+  padding: 0.15em 0.55em;
+  border-radius: var(--radius);
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  font-weight: 600;
+  vertical-align: 0.15em;
+}
+
+
+/* Address block */
+.address { font-size: 1.25rem; line-height: 1.4; }
+
+/* OpenStreetMap embed: <div class="map"><iframe …></iframe></div>
+   Change aspect-ratio to make the map taller (e.g. 1 / 1) or wider (16 / 9). */
+.map {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  max-width: var(--text-width);
+  overflow: hidden;
+  margin-bottom: 0.6rem;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  background: var(--accent-soft);
+}
+.map iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.map-link {
+  font-family: var(--font-ui);
+  font-size: 0.9375rem;
+}
+
+/* Keynote tag inside a speaker name */
+.person h3 .tag { vertical-align: 0.1em; }
+
+
+/* 7. Important dates timeline ---------------------------------------------
+   <ol class="timeline">
+     <li class="done">…</li>   date has passed (greyed out)
+     <li class="next">…</li>   the upcoming date (highlighted)
+     <li>…</li>                future dates
+   </ol>
+   ------------------------------------------------------------------------- */
+
+.timeline {
+  max-width: var(--text-width);
+  margin: 0 0 1em 0.4rem;
+  padding: 0;
+  list-style: none;
+}
+
+.timeline li {
+  position: relative;
+  margin: 0;
+  padding: 0 0 1.75rem 2rem;
+  border-left: 2px solid var(--rule);
+}
+.timeline li:last-child {
+  padding-bottom: 0;
+  border-left-color: transparent;
+}
+
+.timeline li::before {
+  content: "";
+  position: absolute;
+  top: 0.3rem;
+  left: calc(-0.4rem - 1px);
+  width: 0.8rem;
+  height: 0.8rem;
+  border: 2px solid var(--muted);
+  border-radius: 50%;
+  background: var(--paper);
+}
+
+.timeline time {
+  display: block;
+  color: var(--muted);
+  font-family: var(--font-ui);
+  font-size: 0.9375rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.timeline .done { color: var(--muted); }
+.timeline .done::before { border-color: var(--rule); background: var(--rule); }
+
+.timeline .next::before {
+  border-color: var(--accent);
+  background: var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-soft);
+}
+.timeline .next time { color: var(--accent); font-weight: 600; }
+
+
+/* 8. Programme table ------------------------------------------------------
+   Wrap each table in <div class="table-wrap"> so it scrolls on phones.
+   Row classes: class="break" (coffee, lunch), class="keynote".
+   ------------------------------------------------------------------------- */
+
+.table-wrap {
+  overflow-x: auto;
+  margin-bottom: 2rem;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.schedule {
+  width: 100%;
+  min-width: 34rem;
+  border-collapse: collapse;
+  font-size: 1.0625rem;
+}
+
+.schedule th,
+.schedule td {
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid var(--rule);
+  text-align: left;
+  vertical-align: top;
+}
+.schedule tbody tr:last-child td { border-bottom: 0; }
+
+.schedule thead th {
+  color: var(--muted);
+  font-family: var(--font-ui);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.schedule td:first-child {
+  width: 8.5rem;
+  color: var(--muted);
+  font-family: var(--font-ui);
+  font-size: 0.9375rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.schedule .speaker {
+  display: block;
+  color: var(--muted);
+  font-family: var(--font-ui);
+  font-size: 0.9375rem;
+}
+
+.schedule .break td {
+  background: var(--paper);
+  color: var(--muted);
+  font-style: italic;
+}
+
+.schedule .keynote td:first-child { box-shadow: inset 3px 0 0 var(--accent); }
+
+
+/* 9. People ---------------------------------------------------------------
+   <ul class="people">
+     <li class="person">
+       <span class="avatar">AV</span>    or  <img class="avatar" src="…" alt="">
+       <div> <h3>Name</h3> <p>Affiliation</p> </div>
+     </li>
+   </ul>
+   ------------------------------------------------------------------------- */
+
+.people {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: 2.5rem 2rem;
+  max-width: none;
+  margin: 0 0 1em;
+  padding: 0;
+  list-style: none;
+}
+
+.person {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin: 0;
+}
+
+.avatar {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-family: var(--font-ui);
+  font-size: 1.125rem;
+  font-weight: 600;
+  object-fit: cover;
+}
+
+.person h3 {
+  margin: 0 0 0.15rem;
+  font-size: 1.125rem;
+}
+
+.person p {
+  margin: 0;
+  color: var(--muted);
+  font-family: var(--font-ui);
+  font-size: 0.9375rem;
+  line-height: 1.45;
+}
+
+.person .talk {
+  margin-top: 0.5rem;
+  color: var(--ink);
+  font-family: var(--font-text);
+  font-size: 1.0625rem;
+  font-style: italic;
+}
+
+
+/* 10. Footer -------------------------------------------------------------- */
+
+.site-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: 2.5rem;
+  border-top: 1px solid var(--rule);
+  color: var(--muted);
+  font-family: var(--font-ui);
+  font-size: 0.9375rem;
+}
+
+.site-footer p { margin: 0; }
+.site-footer a { color: inherit; }
+
+
+/* 11. Small screens and print --------------------------------------------- */
+
+/* Below 60rem the two columns stack: the sidebar becomes a bar at the top
+   showing the site name and a scrollable row of links. */
+@media (max-width: 60rem) {
+  html { scroll-padding-top: 5.5rem; }
+
+  .layout { grid-template-columns: minmax(0, 1fr); }
+
+  .sidebar {
+    z-index: 10;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.25rem 2rem;
+    max-height: none;
+    overflow: visible;
+    margin-inline: calc(-1 * var(--gutter));
+    padding: 0.6rem var(--gutter);
+    border-bottom: 1px solid var(--rule);
+    background: var(--surface);
+  }
+  .sidebar .brand { font-size: 1.25rem; }
+  .sidebar-tagline,
+  .sidebar-extra { display: none; }
+
+  .site-nav { min-width: 0; flex: 1 1 auto; }
+  .site-nav ul {
+    display: flex;
+    gap: 1.25rem;
+    overflow-x: auto;
+    border-left: 0;
+  }
+  .site-nav a {
+    margin: 0;
+    padding: 0.5rem 0;
+    border-left: 0;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 40rem) {
+  .info { grid-template-columns: 1fr; gap: 0; }
+  .info dd { margin-bottom: 0.9rem; }
+}
+
+@media print {
+  :root {
+    --paper: #fff; --surface: #fff; --ink: #000;
+    --muted: #444; --rule: #bbb; --accent-soft: #eee;
+  }
+  .sidebar, .skip-link, .actions, .map { display: none; }
+  .layout { display: block; }
+  body { font-size: 11pt; }
+  main > section { padding-block: 1.5rem; }
+  .table-wrap { overflow: visible; }
+}
