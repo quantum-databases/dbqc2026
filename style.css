@@ -400,6 +400,18 @@ section > ol { max-width: var(--text-width); }
 /* Keynote tag inside a speaker name */
 .person h3 .tag { vertical-align: 0.1em; }
 
+/* notes for registration */
+.reg-notes {
+  max-width: var(--text-width);
+  margin: 1rem 0 0;
+  padding-left: 1.1em;
+  color: var(--muted);
+  font-family: var(--font-ui);
+  font-size: 0.8125rem;
+  line-height: 1.45;
+}
+.reg-notes li { margin-bottom: 0.2rem; }
+
 
 /* 7. Important dates timeline ---------------------------------------------
    <ol class="timeline">
